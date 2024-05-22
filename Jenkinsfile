@@ -14,9 +14,16 @@ pipeline {
         }
 
         stage('Build Docker Image') {
+            environment {
+                DOCKER_IMAGE = "flask-app:${BUILD_NUMBER}"
+                
+                REGISTRY_CREDENTIALS = credentials('Docker_pass')
+            }
             steps {
                 script {
-                    docker.build("${env.DOCKERHUB_REPO}:${env.BUILD_ID}")
+                    sh 'cd Devops_frontend_backend_project && docker build -t ${DOCKER_IMAGE} .'
+                    
+                }
             }
         }
         }
