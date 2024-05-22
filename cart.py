@@ -14,3 +14,4 @@ def add_to_cart(product_id):
     return redirect(url_for('product.product_details', product_id=product_id))
 
 
+

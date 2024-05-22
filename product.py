@@ -13,3 +13,4 @@ def product_details(product_id):
     }
     return render_template('product.html', **product)
 
+

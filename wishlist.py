@@ -13,3 +13,4 @@ def add_to_wishlist(product_id):
     wishlist_items.append(product_id)
     return redirect(url_for('product.product_details', product_id=product_id))
 
+
