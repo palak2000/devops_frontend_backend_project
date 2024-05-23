@@ -14,14 +14,10 @@ pipeline {
         }
 
         stage('Build Docker Image') {
-            environment {
-                DOCKER_IMAGE = "flask-app:${BUILD_NUMBER}"
-                
-                REGISTRY_CREDENTIALS = credentials('Docker_pass')
-            }
             steps {
                 script {
-                    docker.build("${env.DOCKERHUB_REPO}:${env.BUILD_ID}")
+                    // Build the Docker image
+                    def app = docker.build("${env.DOCKERHUB_REPO}:${env.BUILD_ID}")
                 }
             }
         }
@@ -36,7 +32,7 @@ pipeline {
                     '''
 
                     // Run the new container
-                    docker.image("${env.DOCKERHUB_REPO}:${env.BUILD_ID}").run('-d -p 5000:5000 --name flask-app')
+                    sh "docker run -d --name flask-app -p 5000:5000 ${env.DOCKERHUB_REPO}:${env.BUILD_ID}"
                 }
             }
         }
