@@ -21,8 +21,7 @@ pipeline {
             }
             steps {
                 script {
-                    sh 'cd Devops_frontend_backend_project && docker build -t ${DOCKER_IMAGE} .'
-                    def dockerImage = docker.image("${DOCKER_IMAGE}")
+                    docker.build("${env.DOCKERHUB_REPO}:${env.BUILD_ID}")
                 }
             }
         }
