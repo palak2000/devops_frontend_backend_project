@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKERHUB_REPO = 'Devops_frontend_backend_project/flask-app'
+        DOCKERHUB_REPO = 'devops_frontend_backend_project/flask-app'
     }
 
     stages {
