@@ -59,6 +59,8 @@ pipeline {
         }
         steps {
             // credentialsId: 'github' -> github token added in jenkins
+            // for sed cmd -> we are in workspace directory, inside workspace directory we have all the files and file structure of repo cloned
+                    
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
                     git config user.email "palak2000.j@gmail.com"
@@ -66,7 +68,6 @@ pipeline {
                     BUILD_NUMBER=${BUILD_NUMBER}
                     echo "Checking if deployment.yaml exists"
                     pwd 
-                    // we are in workspace directory, inside workspace directory we have all the files and file structure of repo cloned
                     ls -l
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" app_manifest/deployment.yaml
                     git add app_manifest/deployment.yaml
