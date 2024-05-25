@@ -2,7 +2,7 @@ pipeline {
   agent any
   
   environment {
-        DOCKERHUB_REPO = 'devops_frontend_backend_project/flask-app'
+        DOCKERHUB_REPO = 'palak8/flask-app'
         DOCKERHUB_CREDENTIALS_ID = 'docker-cred'
   }
   stages {
