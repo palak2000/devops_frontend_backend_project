@@ -8,6 +8,7 @@ pipeline {
     stage('Checkout') {
       steps {
         sh 'echo passed'
+        sh 'Jenkins file to build and push image to docker hub and Update manifest file.'
         // git branch: 'main', url: 'https://github.com/palak2000/devops_fe_be_project_manifest_update', credentialsId: 'Docker_pass'
       }
     }
