@@ -65,11 +65,11 @@ pipeline {
                     git config user.name "Palak Jain"
                     BUILD_NUMBER=${BUILD_NUMBER}
                     echo "Checking if deployment.yaml exists"
-                    pwd
+                    pwd 
+                    // we are in workspace directory, inside workspace directory we have all the files and file structure of repo cloned
                     ls -l
-                    ls -l app_manifest/deployment.yaml
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" app_manifest/deployment.yaml
-                    git add devops_frontend_backend_project/app_manifest/deployment.yaml
+                    git add app_manifest/deployment.yaml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
                 '''
