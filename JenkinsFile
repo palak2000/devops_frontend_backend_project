@@ -65,6 +65,7 @@ pipeline {
                     git config user.name "Palak Jain"
                     BUILD_NUMBER=${BUILD_NUMBER}
                     echo "Checking if deployment.yaml exists"
+                    pwd
                     ls -l devops_frontend_backend_project/app_manifest/deployment.yaml
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" devops_frontend_backend_project/app_manifest/deployment.yaml
                     git add devops_frontend_backend_project/app_manifest/deployment.yaml
