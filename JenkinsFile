@@ -3,6 +3,7 @@ pipeline {
   
   environment {
         DOCKERHUB_REPO = 'palak8/flask-app'
+        // DOCKERHUB_REPO should have the same name as the repo creted in docker hub.
         DOCKERHUB_CREDENTIALS_ID = 'docker-cred'
   }
   stages {
