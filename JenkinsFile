@@ -54,7 +54,7 @@ pipeline {
         }
     stage('Update Deployment File') {
         environment {
-            GIT_REPO_NAME = "devops_fe_be_project_manifest_update"
+            GIT_REPO_NAME = "devops_frontend_backend_project"
             GIT_USER_NAME = "palak2000"
         }
         steps {
@@ -64,8 +64,8 @@ pipeline {
                     git config user.email "palak2000.j@gmail.com"
                     git config user.name "Palak Jain"
                     BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" devops_fe_be_project_manifest_update/Flask-app-manifest/deployment.yml
-                    git add devops_fe_be_project_manifest_update/Flask-app-manifest/deployment.yml
+                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" devops_frontend_backend_project/Flask-app-manifest/deployment.yml
+                    git add devops_frontend_backend_project/Flask-app-manifest/deployment.yml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
                 '''
