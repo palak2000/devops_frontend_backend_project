@@ -3,6 +3,7 @@ pipeline {
   
   environment {
         DOCKERHUB_REPO = 'devops_frontend_backend_project/flask-app'
+        DOCKERHUB_CREDENTIALS_ID = 'docker-cred'
   }
   stages {
     stage('Checkout') {
@@ -25,7 +26,7 @@ pipeline {
       //}
     //}
     
-    stage('Build and Push Docker Image') {
+  stage('Build Docker Image') {
       environment {      
         // DOCKERFILE_LOCATION = "devops_frontend_backend_project/Dockerfile"
         // Credentials(docker-cred) -> docker hub cresentials
@@ -36,13 +37,21 @@ pipeline {
             // Build the Docker image
             def app = docker.build("${env.DOCKERHUB_REPO}:${env.BUILD_ID}")
             sh 'echo "Build is completed, noe push the image to docker hub."'
-            def dockerImage = docker.image("${DOCKER_IMAGE}")
-            docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
-                dockerImage.push()
-            }
         }
       }
     }
+  stage('Push Docker Image') {
+            steps {
+                script {
+                    echo "Pushing Docker image..."
+                    docker.withRegistry('https://index.docker.io/v1/', "${DOCKERHUB_CREDENTIALS_ID}") {
+                        sh "docker tag ${DOCKERHUB_REPO}:${env.BUILD_ID} ${DOCKERHUB_REPO}:latest"
+                        sh "docker push ${DOCKERHUB_REPO}:${env.BUILD_ID}"
+                        sh "docker push ${DOCKERHUB_REPO}:latest"
+                    }
+                }
+            }
+        }
     stage('Update Deployment File') {
         environment {
             GIT_REPO_NAME = "devops_fe_be_project_manifest_update"
