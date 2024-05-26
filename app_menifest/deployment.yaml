@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: flask-app
-        image: palak8/flask-app:23
+        image: palak8/flask-app:25
         ports:
         - containerPort: 8080
