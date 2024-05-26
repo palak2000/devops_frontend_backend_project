@@ -53,6 +53,20 @@ pipeline {
                 }
             }
         }
+
+  stage('Get Recent Image Tag') {
+            steps {
+                script {
+                    echo "Fetching the most recent image tag"
+                    def recentTag = sh(
+                        script: "curl -s https://registry.hub.docker.com/v1/repositories/${env.DOCKERHUB_REPO}/tags | jq -r '.[].name' | sort -V | tail -n 1",
+                        returnStdout: true
+                    ).trim()
+                    env.RECENT_TAG = recentTag
+                    echo "Most recent image tag is ${env.RECENT_TAG}"
+                }
+            }
+        }
     stage('Update Deployment File') {
         environment {
             GIT_REPO_NAME = "devops_frontend_backend_project"
@@ -70,7 +84,8 @@ pipeline {
                     echo "Checking if deployment.yaml exists"
                     pwd 
                     ls -l
-                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" app_menifest/deployment.yaml
+                    current_tag=`cat app_menifest/deployment.yaml | grep -w "image:" | awk -F':' '{print $3}'`
+                    sed -i "s/${DOCKERHUB_REPO}:${current_tag}/${DOCKERHUB_REPO}:${RECENT_TAG}/g" app_menifest/deployment.yaml
                     git add app_menifest/deployment.yaml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
