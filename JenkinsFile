@@ -85,7 +85,8 @@ pipeline {
                     pwd 
                     ls -l
                     current_tag=`cat app_menifest/deployment.yaml | grep -w "image:" | awk -F':' '{print $3}'`
-                    sed -i "s/${DOCKERHUB_REPO}:${current_tag}/${DOCKERHUB_REPO}:${RECENT_TAG}/g" app_menifest/deployment.yaml
+                    replace_repo=`cat deployment.yaml | grep -w "image:" | awk -F':' '{print $2}' | awk -F'/' '{print $2}'`
+                    sed -i "s/${replace_repo}:${current_tag}/${replace_repo}:${BUILD_ID}/g" app_menifest/deployment.yaml
                     git add app_menifest/deployment.yaml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
