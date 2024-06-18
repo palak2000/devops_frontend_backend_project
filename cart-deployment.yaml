@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: cart
-        image: palak8/cart3:latest
+        image: palak8/cart150:latest
         ports:
         - containerPort: 5003
 ---

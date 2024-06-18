@@ -8,9 +8,8 @@
 <body>
     <h1>Product Page</h1>
     <p>Select a product to view details.</p>
-    <a href="/products/1">Product 1</a><br>
-    <a href="/products/2">Product 2</a>
-    
+    <a href="{{ url_for('product.product_details', product_id=1) }}">Product 1</a><br>
+    <a href="{{ url_for('product.product_details', product_id=2) }}">Product 2</a>
 </body>
 </html>
 

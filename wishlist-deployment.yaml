@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: wishlist
-        image: palak8/wishlist3:latest
+        image: palak8/wishlist150:latest
         ports:
         - containerPort: 5002
 ---

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: product
-        image: palak8/product3:latest
+        image: palak8/product150:latest
         ports:
         - containerPort: 5001
 ---

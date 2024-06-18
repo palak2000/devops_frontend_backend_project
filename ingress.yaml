@@ -7,35 +7,35 @@ metadata:
 spec:
   ingressClassName: nginx-example
   rules:
-  - host: demo5.com
+  - host: demo-check4.com
     http:
       paths:
       - path: /()
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: main-service
             port:
               number: 80
-      - path: /products(.*)
-        pathType: Prefix
+      - path: /products(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: product-service
             port:
-              number: 5001
+              number: 80
       - path: /wishlist(.*)
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: wishlist-service
             port:
-              number: 5002
+              number: 80
       - path: /cart(.*)
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: cart-service
             port:
-              number: 5003
+              number: 80
 
